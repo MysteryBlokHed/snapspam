@@ -43,6 +43,19 @@ The ID can also be replaced by the full URL, like this:
 python snapspam sendit https://web.getsendit.com/s/b2e143fa-75f5-47ff-80ec-4fb366b336cc 'Spammed'
 ```
 
+## Installation
+
+You can use snapspam without installing it.
+If you want to use it from a command line anywhere on your computer,
+then you can run:
+
+```sh
+python setup.py install
+```
+
+This will let you run snapspam anywhere.
+Instead of running it with `python snapspam`, just use `python -m snapspam`.
+
 ## License
 
 snapspam is licensed under the GNU General Public License, Version 3.0
