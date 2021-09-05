@@ -1,9 +1,11 @@
+"""The CLI for snapspam."""
 import argparse
 from time import sleep
 import json
 
 
 def main():
+    """The main function to set up the CLI and run the spammers"""
     parser = argparse.ArgumentParser(
         description=
         'A CLI to spam multiple common anonymous message apps for Snapchat')

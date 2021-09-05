@@ -1,6 +1,6 @@
 # snapspam
 
-A CLI to spam multiple common anonymous message apps for Snapchat.
+A CLI + library to spam multiple common anonymous message apps for Snapchat.
 
 ## Supported apps
 

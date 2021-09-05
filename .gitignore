@@ -1,1 +1,5 @@
+# Python files
 *.pyc
+
+# Sphinx build
+docs/_build/
