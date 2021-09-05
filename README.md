@@ -7,42 +7,6 @@ A CLI + library to spam multiple common anonymous message apps for Snapchat.
 - sendit
 - LMK
 
-## Requirements
-
-Python 3.6 or greater must be installed.
-To install the package requirements, clone the repository and run:
-
-```sh
-python -m pip install -r requirements.txt
-```
-
-## Use
-
-To get help from the CLI, run:
-
-```sh
-python snapspam --help
-```
-
-Some information about how to use the app will be returned.
-To get help for a specific target app (eg. sendit), run:
-
-```sh
-python snapspam sendit --help
-```
-
-Here's an example usage of the app to spam a sendit sticker:
-
-```sh
-python snapspam sendit cd06ec9a-2879-1afa-5108-fed08b1ecaa0 'Spammed'
-```
-
-The ID can also be replaced by the full URL, like this:
-
-```sh
-python snapspam sendit https://web.getsendit.com/s/b2e143fa-75f5-47ff-80ec-4fb366b336cc 'Spammed'
-```
-
 ## Installation
 
 You can use snapspam without installing it.
@@ -54,7 +18,33 @@ python setup.py install
 ```
 
 This will let you run snapspam anywhere.
-Instead of running it with `python snapspam`, just use `python -m snapspam`.
+
+## Use
+
+To get help from the CLI, run:
+
+```sh
+python -m snapspam --help
+```
+
+Some information about how to use the app will be returned.
+To get help for a specific target app (eg. sendit), run:
+
+```sh
+python -m snapspam sendit --help
+```
+
+Here's an example usage of the app to spam a sendit sticker:
+
+```sh
+python -m snapspam sendit cd06ec9a-2879-1afa-5108-fed08b1ecaa0 'Spammed'
+```
+
+The ID can also be replaced by the full URL, like this:
+
+```sh
+python -m snapspam sendit https://web.getsendit.com/s/b2e143fa-75f5-47ff-80ec-4fb366b336cc 'Spammed'
+```
 
 ## License
 
