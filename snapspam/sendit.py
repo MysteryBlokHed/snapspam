@@ -1,5 +1,4 @@
 """Functions to spam a sendit message."""
-from dataclasses import dataclass
 import json
 import requests
 import secrets
@@ -27,6 +26,11 @@ class Sendit:
         }
 
     def post(self):
+        """Send a message to the API
+
+        Returns:
+            requests.Response: The response from the POST
+        """
         info = self._get_recipient_info()
         if info['status'] != 'success':
             print(f'Sticker info request failed. Response:\n{info}')
