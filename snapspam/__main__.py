@@ -26,29 +26,33 @@ def main():
                                        dest='target_app',
                                        required=True)
 
-    ##### Sendit Parser #####
-    sendit_parser = subparsers.add_parser('sendit',
-                                          help='Spam a sendit sticker')
-    sendit_parser.add_argument('sticker_id',
-                               type=str,
-                               help='The sticker ID or URL to spam')
-    sendit_parser.add_argument('message', type=str, help='The message to spam')
-    sendit_parser.add_argument('--msg-count',
-                               type=int,
-                               default=-1,
-                               help='The amount of messages to send. '
-                               'Set to -1 (default) to spam until stopped')
-    sendit_parser.add_argument(
+    ##### Parent parser for common args #####
+    common_args = argparse.ArgumentParser(add_help=False)
+
+    common_args.add_argument('--msg-count',
+                             type=int,
+                             default=-1,
+                             help='The amount of messages to send. '
+                             'Set to -1 (default) to spam until stopped')
+    common_args.add_argument(
         '--thread-count',
         type=int,
         default=1,
         help='The amount of threads to create. Only valid for --msg-count -1. '
         'Note that the message count will NOT be divided between threads.')
-    sendit_parser.add_argument(
-        '--delay',
-        type=int,
-        default=500,
-        help='Milliseconds to wait between message sends')
+    common_args.add_argument('--delay',
+                             type=int,
+                             default=500,
+                             help='Milliseconds to wait between message sends')
+
+    ##### Sendit Parser #####
+    sendit_parser = subparsers.add_parser('sendit',
+                                          help='Spam a sendit sticker',
+                                          parents=[common_args])
+    sendit_parser.add_argument('sticker_id',
+                               type=str,
+                               help='The sticker ID or URL to spam')
+    sendit_parser.add_argument('message', type=str, help='The message to spam')
     sendit_parser.add_argument(
         '--sendit-delay',
         type=int,
@@ -57,7 +61,9 @@ def main():
         '(Part of sendit; not a custom feature)')
 
     ##### LMK Parser #####
-    lmk_parser = subparsers.add_parser('lmk', help='Spam an LMK poll')
+    lmk_parser = subparsers.add_parser('lmk',
+                                       help='Spam an LMK poll',
+                                       parents=[common_args])
 
     lmk_parser.add_argument('lmk_id',
                             type=str,
@@ -67,21 +73,6 @@ def main():
         type=str,
         help='The choice ID to send to the poll. '
         "If you don't know this, use get_choices as the argument")
-    lmk_parser.add_argument('--msg-count',
-                            type=int,
-                            default=-1,
-                            help='The amount of messages to send. '
-                            'Set to -1 (default) to spam until stopped')
-    lmk_parser.add_argument(
-        '--thread-count',
-        type=int,
-        default=1,
-        help='The amount of threads to create. Only valid for --msg-count -1. '
-        'Note that the message count will NOT be divided between threads.')
-    lmk_parser.add_argument('--delay',
-                            type=int,
-                            default=500,
-                            help='Milliseconds to wait between message sends')
 
     args = parser.parse_args()
 
