@@ -43,7 +43,7 @@ python -m snapspam sendit cd06ec9a-2879-1afa-5108-fed08b1ecaa0 'Spammed'
 The ID can also be replaced by the full URL, like this:
 
 ```sh
-python -m snapspam sendit https://web.getsendit.com/s/b2e143fa-75f5-47ff-80ec-4fb366b336cc 'Spammed'
+python -m snapspam sendit https://web.getsendit.com/s/cd06ec9a-2879-1afa-5108-fed08b1ecaa0 'Spammed'
 ```
 
 ## License
