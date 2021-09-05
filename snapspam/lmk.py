@@ -22,13 +22,13 @@ class Choice:
 
 
 class LMK:
+    """Initialize the LMK class
+
+    Args:
+        link_or_id (str): The LMK URL or the ID portion of the URL
+    """
 
     def __init__(self, link_or_id: str):
-        """Initialize the LMK class
-
-        Args:
-            link_or_id (str): The LMK URL or the ID portion of the URL
-        """
         self._lmk_id = self._link_to_id(link_or_id)
         self._headers = {
             'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',

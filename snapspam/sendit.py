@@ -5,16 +5,16 @@ import secrets
 
 
 class Sendit:
+    """Initialize the Sendit class
+
+    Args:
+        link_or_id (str): The sendit URL or the ID portion of the URL
+        message (str): The message to send
+        delay (int, optional): The delay before sending the message
+            (part of the sendit API). Defaults to 0.
+    """
 
     def __init__(self, link_or_id: str, message: str, delay: int = 0):
-        """Initialize the Sendit class
-
-        Args:
-            link_or_id (str): The sendit URL or the ID portion of the URL
-            message (str): The message to send
-            delay (int, optional): The delay before sending the message
-              (part of the sendit API). Defaults to 0.
-        """
         self._sendit_id = self._link_to_id(link_or_id)
         self._message = message
         self._delay = delay
