@@ -2,6 +2,7 @@
 import argparse
 import json
 import threading
+import random
 from time import sleep
 from typing import Callable
 
@@ -68,19 +69,19 @@ def main():
     lmk_parser.add_argument('lmk_id',
                             type=str,
                             help='The ID or URL of the poll to spam')
-    lmk_parser.add_argument(
-        'choice',
-        type=str,
-        help='The choice ID to send to the poll. '
-        "If you don't know this, use get_choices as the argument")
+    lmk_parser.add_argument('choice',
+                            type=str,
+                            help='The choice ID to send to the poll. '
+                            "To get a list of choices, use 'get_choices'. "
+                            "To send a random choice each time, use 'all'.")
 
     args = parser.parse_args()
 
     if args.target_app == 'sendit':
-        import sendit
+        import snapspam.sendit
 
-        spammer = sendit.Sendit(args.sticker_id, args.message,
-                                args.sendit_delay)
+        spammer = snapspam.sendit.Sendit(args.sticker_id, args.message,
+                                         args.sendit_delay)
 
         def send():
             r = json.loads(spammer.post().content)
@@ -108,9 +109,9 @@ def main():
             for _ in range(args.msg_count):
                 send()
     elif args.target_app == 'lmk':
-        import lmk
+        import snapspam.lmk
 
-        spammer = lmk.LMK(args.lmk_id)
+        spammer = snapspam.lmk.LMK(args.lmk_id)
 
         # Scrape page for poll choices and print them
         if args.choice.lower() == 'get_choices':
@@ -125,19 +126,29 @@ def main():
         def send(choice: str):
             r = spammer.post(choice)
             if r.status_code == 200:
-                print('Sent message')
+                print(f'Sent message (Choice: {choice})')
             else:
                 print(f'Message failed to send. Code: {r.status_code}')
                 print(r.content)
             sleep(args.delay / 1000)
 
+        if args.choice.lower() == 'all':
+            ids = [c.cid for c in spammer.get_choices()]
+
         if args.msg_count == -1:
             print('Sending messages until stopped.')
             print('(Stop with Ctrl + C)')
 
-            def thread():
-                while True:
-                    send(args.choice)
+            if args.choice.lower() == 'all':
+
+                def thread():
+                    while True:
+                        send(random.choice(ids))
+            else:
+
+                def thread():
+                    while True:
+                        send(args.choice)
 
             start_threads(thread, args.thread_count)
         else:
