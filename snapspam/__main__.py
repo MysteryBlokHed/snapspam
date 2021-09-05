@@ -1,5 +1,6 @@
 """The CLI for snapspam."""
 import argparse
+import threading
 from time import sleep
 import json
 
@@ -25,6 +26,12 @@ def main():
                                default=-1,
                                help='The amount of messages to send. '
                                'Set to -1 (default) to spam until stopped')
+    sendit_parser.add_argument(
+        '--thread-count',
+        type=int,
+        default=1,
+        help='The amount of threads to create. Only valid for --msg-count -1. '
+        'Note that the message count will NOT be divided between threads.')
     sendit_parser.add_argument(
         '--delay',
         type=int,
@@ -61,8 +68,18 @@ def main():
             print(f'Sending {args.msg_count} messages...')
 
         if args.msg_count == -1:
-            while True:
-                send()
+
+            def thread():
+                while True:
+                    send()
+
+            for i in range(args.thread_count - 1):
+                t = threading.Thread(target=thread)
+                t.daemon = True
+                t.start()
+
+            # Instead of running n threads, run n - 1 and run one in the main thread
+            thread()
         else:
             for _ in range(args.msg_count):
                 send()
