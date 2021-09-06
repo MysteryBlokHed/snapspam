@@ -9,9 +9,16 @@ If you want to use it from a command line anywhere on your computer,
 then you can run:
 
 ```sh
+python -m pip install snapspam
+```
+
+to install from PyPI, or:
+
+```sh
 python setup.py install
 ```
 
+To install from a cloned/downloaded repository.
 This will let you run snapspam anywhere.
 
 If you don't want to install snapspam,
