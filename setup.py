@@ -11,11 +11,14 @@ setuptools.setup(
     description='Spam sendit or LMK messages.',
     long_description=long_description,
     long_description_content_type='text/markdown',
+    license='GNU General Public License v3 (GPLv3)',
+    license_files=('LICENSE',),
     url='https://github.com/MysteryBlokHed/snapspam',
     packages=setuptools.find_packages(),
     install_requires=[
         'beautifulsoup4~=4.9',
         'pysocks~=1.7',
+        'requests~=2.25',
         'requests[socks]~=2.25',
     ],
     classifiers=[
