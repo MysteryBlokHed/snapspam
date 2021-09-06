@@ -37,7 +37,6 @@ class Sendit:
         Returns:
             requests.Response: The response from the POST
         """
-        print('IT HAS UPDATED')
         info = self._get_recipient_info()
         if info['status'] != 'success':
             print(f'Sticker info request failed. Response:\n{info}')
