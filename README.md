@@ -1,4 +1,4 @@
-# snapspam
+# snapspam [![Docs Badge]](https://snapspam.readthedocs.io/en/stable/)
 
 Spam sendit or LMK messages.
 
@@ -78,4 +78,5 @@ Library documentation is hosted on [Read the Docs].
 snapspam is licensed under the GNU General Public License, Version 3.0
 ([LICENSE](LICENSE) or <https://www.gnu.org/licenses/gpl-3.0.en.html>).
 
-[Read the Docs]: https://snapspam.readthedocs.io/en/stable/
+[docs badge]: https://readthedocs.org/projects/snapspam/badge/?version=latest
+[read the docs]: https://snapspam.readthedocs.io/en/stable/
