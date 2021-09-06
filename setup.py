@@ -15,7 +15,9 @@ setuptools.setup(
     url='https://github.com/MysteryBlokHed/snapspam',
     packages=setuptools.find_packages(),
     install_requires=[
-        'requests~=2.25',
+        'beautifulsoup4~=4.9',
+        'pysocks~=1.7',
+        'requests[socks]~=2.25',
     ],
     classifiers=[
         'Intended Audience :: End Users/Desktop',

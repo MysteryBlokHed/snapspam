@@ -21,67 +21,101 @@ def main():
     """The main function to set up the CLI and run the spammers"""
     parser = argparse.ArgumentParser(
         description=
-        'A CLI to spam multiple common anonymous message apps for Snapchat')
+        'A CLI to spam multiple common anonymous message apps for Snapchat',)
 
-    subparsers = parser.add_subparsers(help='The app to spam',
-                                       dest='target_app',
-                                       required=True)
+    subparsers = parser.add_subparsers(
+        help='The app to spam',
+        dest='target_app',
+        required=True,
+    )
 
     ##### Parent parser for common args #####
     common_args = argparse.ArgumentParser(add_help=False)
 
-    common_args.add_argument('--msg-count',
-                             type=int,
-                             default=-1,
-                             help='The amount of messages to send. '
-                             'Set to -1 (default) to spam until stopped')
+    common_args.add_argument(
+        '--msg-count',
+        type=int,
+        default=-1,
+        help='The amount of messages to send. '
+        'Set to -1 (default) to spam until stopped',
+    )
     common_args.add_argument(
         '--thread-count',
         type=int,
         default=1,
-        help='The amount of threads to create. Only valid for --msg-count -1. '
-        'Note that the message count will NOT be divided between threads.')
-    common_args.add_argument('--delay',
-                             type=int,
-                             default=500,
-                             help='Milliseconds to wait between message sends')
+        help='The amount of threads to create. Only valid for --msg-count -1 ',
+    )
+    common_args.add_argument(
+        '--delay',
+        type=int,
+        default=500,
+        help='Milliseconds to wait between message sends',
+    )
+    common_args.add_argument(
+        '--proxy',
+        type=str,
+        help='Specify a SOCKS proxy to use for HTTPS traffic '
+        '(eg. socks5://127.0.0.1:9050). Note that this will almost certainly '
+        'be much slower than not using a proxy',
+    )
 
     ##### Sendit Parser #####
-    sendit_parser = subparsers.add_parser('sendit',
-                                          help='Spam a sendit sticker',
-                                          parents=[common_args])
-    sendit_parser.add_argument('sticker_id',
-                               type=str,
-                               help='The sticker ID or URL to spam')
+    sendit_parser = subparsers.add_parser(
+        'sendit',
+        help='Spam a sendit sticker',
+        parents=[common_args],
+    )
+    sendit_parser.add_argument(
+        'sticker_id',
+        type=str,
+        help='The sticker ID or URL to spam',
+    )
     sendit_parser.add_argument('message', type=str, help='The message to spam')
     sendit_parser.add_argument(
         '--sendit-delay',
         type=int,
         default=0,
         help='Minutes before the recipient gets the message '
-        '(Part of sendit; not a custom feature)')
+        '(Part of sendit; not a custom feature)',
+    )
 
     ##### LMK Parser #####
-    lmk_parser = subparsers.add_parser('lmk',
-                                       help='Spam an LMK poll',
-                                       parents=[common_args])
+    lmk_parser = subparsers.add_parser(
+        'lmk',
+        help='Spam an LMK poll',
+        parents=[common_args],
+    )
 
-    lmk_parser.add_argument('lmk_id',
-                            type=str,
-                            help='The ID or URL of the poll to spam')
-    lmk_parser.add_argument('choice',
-                            type=str,
-                            help='The choice ID to send to the poll. '
-                            "To get a list of choices, use 'get_choices'. "
-                            "To send a random choice each time, use 'all'.")
+    lmk_parser.add_argument(
+        'lmk_id',
+        type=str,
+        help='The ID or URL of the poll to spam',
+    )
+    lmk_parser.add_argument(
+        'choice',
+        type=str,
+        help='The choice ID to send to the poll. '
+        "To get a list of choices, use 'get_choices'. "
+        "To send a random choice each time, use 'all'",
+    )
 
     args = parser.parse_args()
+    print(args)
+
+    if args.proxy is None:
+        proxies = {}
+    else:
+        proxies = {'https': args.proxy}
 
     if args.target_app == 'sendit':
         import snapspam.sendit
 
-        spammer = snapspam.sendit.Sendit(args.sticker_id, args.message,
-                                         args.sendit_delay)
+        spammer = snapspam.sendit.Sendit(
+            args.sticker_id,
+            args.message,
+            args.sendit_delay,
+            proxies,
+        )
 
         def send():
             r = json.loads(spammer.post().content)
@@ -108,10 +142,11 @@ def main():
         else:
             for _ in range(args.msg_count):
                 send()
+
     elif args.target_app == 'lmk':
         import snapspam.lmk
 
-        spammer = snapspam.lmk.LMK(args.lmk_id)
+        spammer = snapspam.lmk.LMK(args.lmk_id, proxies)
 
         # Scrape page for poll choices and print them
         if args.choice.lower() == 'get_choices':
