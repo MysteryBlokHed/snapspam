@@ -43,7 +43,7 @@ def main():
         '--thread-count',
         type=int,
         default=1,
-        help='The amount of threads to create. Only valid for --msg-count -1. ',
+        help='The amount of threads to create. Only valid for --msg-count -1 ',
     )
     common_args.add_argument(
         '--delay',
@@ -55,7 +55,8 @@ def main():
         '--proxy',
         type=str,
         help='Specify a SOCKS proxy to use for HTTPS traffic '
-        '(eg. socks5://127.0.0.1:9050).',
+        '(eg. socks5://127.0.0.1:9050). Note that this will almost certainly '
+        'be much slower than not using a proxy',
     )
 
     ##### Sendit Parser #####
@@ -95,7 +96,7 @@ def main():
         type=str,
         help='The choice ID to send to the poll. '
         "To get a list of choices, use 'get_choices'. "
-        "To send a random choice each time, use 'all'.",
+        "To send a random choice each time, use 'all'",
     )
 
     args = parser.parse_args()
