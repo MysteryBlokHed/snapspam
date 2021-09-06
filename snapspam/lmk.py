@@ -26,13 +26,15 @@ class LMK:
 
     Args:
         link_or_id (str): The LMK URL or the ID portion of the URL
+        proxies (dict, optional): Proxies to use for requests
     """
 
-    def __init__(self, link_or_id: str):
+    def __init__(self, link_or_id: str, proxies: dict = {}):
         self._lmk_id = self._link_to_id(link_or_id)
         self._headers = {
             'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
         }
+        self._proxies = proxies
 
     def get_choices(self) -> List[Choice]:
         """Get a list of the choices on the poll along with their IDs
@@ -41,7 +43,7 @@ class LMK:
             List[Choice]: The list of choices
         """
         request_url = f'https://www.onlmk.com/question/{quote(self._lmk_id)}'
-        r = requests.get(request_url)
+        r = requests.get(request_url, proxies=self._proxies)
         soup = BeautifulSoup(r.content, 'html.parser')
 
         if r.status_code != 200:
@@ -115,4 +117,9 @@ class LMK:
             requests.Response: The response from the POST
         """
         request_url = 'https://www.onlmk.com/api/v4/questionResults'
-        return requests.post(request_url, data=msg, headers=self._headers)
+        return requests.post(
+            request_url,
+            data=msg,
+            headers=self._headers,
+            proxies=self._proxies,
+        )

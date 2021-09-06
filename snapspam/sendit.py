@@ -12,9 +12,14 @@ class Sendit:
         message (str): The message to send
         delay (int, optional): The delay before sending the message
             (part of the sendit API). Defaults to 0.
+        proxies (dict, optional): Proxies to use for requests
     """
 
-    def __init__(self, link_or_id: str, message: str, delay: int = 0):
+    def __init__(self,
+                 link_or_id: str,
+                 message: str,
+                 delay: int = 0,
+                 proxies: dict = {}):
         self._sendit_id = self._link_to_id(link_or_id)
         self._message = message
         self._delay = delay
@@ -24,6 +29,7 @@ class Sendit:
             'App-Version': '1.0',
             'Content-Type': 'application/json',
         }
+        self._proxies = proxies
 
     def post(self):
         """Send a message to the API
@@ -61,8 +67,16 @@ class Sendit:
             dict: The parsed response body
         """
         request_url = f'https://api.getsendit.com/v1/stickers/{self._sendit_id}?user=null&shadowToken='
-        self._s.options(request_url, headers=self._headers)
-        r = self._s.get(request_url, headers=self._headers)
+        self._s.options(
+            request_url,
+            headers=self._headers,
+            proxies=self._proxies,
+        )
+        r = self._s.get(
+            request_url,
+            headers=self._headers,
+            proxies=self._proxies,
+        )
         return json.loads(r.content)
 
     def _make_message(self, author_id: str, author_shadow_token: str) -> dict:
@@ -103,5 +117,14 @@ class Sendit:
             requests.Response: The response from the POST
         """
         request_url = 'https://api.getsendit.com/v1/posts'
-        self._s.options(request_url, headers=self._headers)
-        return self._s.post(request_url, data=msg, headers=self._headers)
+        self._s.options(
+            request_url,
+            headers=self._headers,
+            proxies=self._proxies,
+        )
+        return self._s.post(
+            request_url,
+            data=msg,
+            headers=self._headers,
+            proxies=self._proxies,
+        )
