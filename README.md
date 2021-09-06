@@ -68,7 +68,14 @@ The ID can also be replaced by the full URL, like this:
 python -m snapspam sendit https://web.getsendit.com/s/cd06ec9a-2879-1afa-5108-fed08b1ecaa0 'Spammed'
 ```
 
+## Documentation
+
+Documentation of the CLI is contained in the help menu.
+Library documentation is hosted on [Read the Docs].
+
 ## License
 
 snapspam is licensed under the GNU General Public License, Version 3.0
 ([LICENSE](LICENSE) or <https://www.gnu.org/licenses/gpl-3.0.en.html>).
+
+[Read the Docs]: https://snapspam.readthedocs.io/en/stable/
