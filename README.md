@@ -1,4 +1,4 @@
-# snapspam [![Docs Badge]](https://snapspam.readthedocs.io/en/stable/)
+# snapspam [![Docs Badge]](https://snapspam.readthedocs.io/en/stable/) [![Python Badge]](https://pypi.org/project/snapspam/)
 
 Spam sendit or LMK messages.
 
@@ -79,4 +79,5 @@ snapspam is licensed under the GNU General Public License, Version 3.0
 ([LICENSE](LICENSE) or <https://www.gnu.org/licenses/gpl-3.0.en.html>).
 
 [docs badge]: https://readthedocs.org/projects/snapspam/badge/?version=latest
+[python badge]: https://img.shields.io/pypi/pyversions/snapspam
 [read the docs]: https://snapspam.readthedocs.io/en/stable/
