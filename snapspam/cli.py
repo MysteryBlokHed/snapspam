@@ -19,9 +19,7 @@ def start_threads(target: Callable, count: int):
 
 def main():
     """The main function to set up the CLI and run the spammers"""
-    parser = argparse.ArgumentParser(
-        description=
-        'A CLI to spam multiple common anonymous message apps for Snapchat',)
+    parser = argparse.ArgumentParser(description='Spam sendit or LMK messages.')
 
     subparsers = parser.add_subparsers(
         help='The app to spam',
