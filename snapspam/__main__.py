@@ -53,7 +53,7 @@ def main():
     )
     common_args.add_argument(
         '--proxy',
-        action='append',
+        type=str,
         help='Specify a SOCKS proxy to use for HTTPS traffic '
         '(eg. socks5://127.0.0.1:9050).',
     )
@@ -109,8 +109,12 @@ def main():
     if args.target_app == 'sendit':
         import snapspam.sendit
 
-        spammer = snapspam.sendit.Sendit(args.sticker_id, args.message,
-                                         args.sendit_delay)
+        spammer = snapspam.sendit.Sendit(
+            args.sticker_id,
+            args.message,
+            args.sendit_delay,
+            proxies,
+        )
 
         def send():
             r = json.loads(spammer.post().content)
@@ -141,7 +145,7 @@ def main():
     elif args.target_app == 'lmk':
         import snapspam.lmk
 
-        spammer = snapspam.lmk.LMK(args.lmk_id)
+        spammer = snapspam.lmk.LMK(args.lmk_id, proxies)
 
         # Scrape page for poll choices and print them
         if args.choice.lower() == 'get_choices':
