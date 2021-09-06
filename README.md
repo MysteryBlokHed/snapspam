@@ -22,23 +22,36 @@ To get help from the CLI, run:
 python -m snapspam --help
 ```
 
+or
+
+```sh
+python snapspam.py --help
+```
+
 Some information about how to use the app will be returned.
+
 To get help for a specific target app (eg. sendit), run:
 
 ```sh
 python -m snapspam sendit --help
 ```
 
+or
+
+```sh
+python snapspam.py sendit --help
+```
+
 Here's an example usage of the app to spam a sendit sticker:
 
 ```sh
-python -m snapspam sendit cd06ec9a-2879-1afa-5108-fed08b1ecaa0 'Spammed'
+python snapspam.py sendit cd06ec9a-2879-1afa-5108-fed08b1ecaa0 'Spammed'
 ```
 
 The ID can also be replaced by the full URL, like this:
 
 ```sh
-python -m snapspam sendit https://web.getsendit.com/s/cd06ec9a-2879-1afa-5108-fed08b1ecaa0 'Spammed'
+python snapspam.py sendit https://web.getsendit.com/s/cd06ec9a-2879-1afa-5108-fed08b1ecaa0 'Spammed'
 ```
 
 ## License
