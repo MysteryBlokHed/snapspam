@@ -11,7 +11,6 @@ setuptools.setup(
     description='Spam sendit or LMK messages.',
     long_description=long_description,
     long_description_content_type='text/markdown',
-    license='GNU General Public License v3 (GPLv3)',
     license_files=('LICENSE',),
     url='https://github.com/MysteryBlokHed/snapspam',
     packages=setuptools.find_packages(),
