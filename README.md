@@ -14,6 +14,13 @@ python setup.py install
 
 This will let you run snapspam anywhere.
 
+If you don't want to install snapspam,
+you can just install the requirements with:
+
+```sh
+python -m pip install -r requirements.txt
+```
+
 ## Use
 
 To get help from the CLI, run:
