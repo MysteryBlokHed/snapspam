@@ -8,8 +8,7 @@ setuptools.setup(
     version='0.1.0',
     author='Adam Thompson-Sharpe',
     author_email='adamthompsonsharpe@gmail.com',
-    description=
-    'A CLI + library to spam multiple common anonymous message apps for Snapchat.',
+    description='Spam sendit or LMK messages.',
     long_description=long_description,
     long_description_content_type='text/markdown',
     url='https://github.com/MysteryBlokHed/snapspam',
@@ -32,4 +31,5 @@ setuptools.setup(
         'Programming Language :: Python :: 3.9',
         'Programming Language :: Python :: 3.10',
     ],
-    python_requires='~=3.6')
+    python_requires='~=3.6',
+)

@@ -1,11 +1,6 @@
 # snapspam
 
-A CLI + library to spam multiple common anonymous message apps for Snapchat.
-
-## Supported apps
-
-- sendit
-- LMK
+Spam sendit or LMK messages.
 
 ## Installation
 
