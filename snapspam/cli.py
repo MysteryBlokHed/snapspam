@@ -6,6 +6,8 @@ import random
 from time import sleep
 from typing import Callable
 
+from . import __version__
+
 
 def start_threads(target: Callable, count: int):
     for i in range(count - 1):
@@ -20,6 +22,12 @@ def start_threads(target: Callable, count: int):
 def main():
     """The main function to set up the CLI and run the spammers"""
     parser = argparse.ArgumentParser(description='Spam sendit or LMK messages.')
+    parser.add_argument(
+        '-V',
+        '--version',
+        action='version',
+        version=f'snapspam {__version__}',
+    )
 
     subparsers = parser.add_subparsers(
         help='The app to spam',
@@ -188,3 +196,5 @@ def main():
             print(f'Sending {args.msg_count} messages...')
             for _ in range(args.msg_count):
                 send()
+    else:
+        return
