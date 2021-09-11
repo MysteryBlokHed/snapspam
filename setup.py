@@ -20,6 +20,9 @@ setuptools.setup(
         'requests~=2.25',
         'requests[socks]~=2.25',
     ],
+    entry_points={
+        'console_scripts': ['snapspam=snapspam.cli:main'],
+    },
     classifiers=[
         'Intended Audience :: End Users/Desktop',
         'License :: OSI Approved :: GNU General Public License v3 (GPLv3)',
