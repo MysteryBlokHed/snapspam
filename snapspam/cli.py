@@ -106,7 +106,6 @@ def main():
     )
 
     args = parser.parse_args()
-    print(args)
 
     if args.proxy is None:
         proxies = {}
