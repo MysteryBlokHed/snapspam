@@ -4,28 +4,28 @@ Spam sendit or LMK messages.
 
 ## Installation
 
-You can use snapspam without installing it.
-If you want to use it from a command line anywhere on your computer,
-then you can run:
+You can use snapspam without installing it, but installing it
+will allow you to run it anywhere.
+
+### From PyPI
+
+To install from PyPI, [pipx](https://pypi.org/project/pipx/) is recommended.
+With it installed, run:
 
 ```sh
-python -m pip install snapspam
+pipx install snapspam
 ```
 
-to install from PyPI, or:
+To just use pip, run:
+
+```sh
+pip install snapspam
+```
+
+### From Cloned Repository
 
 ```sh
 python setup.py install
-```
-
-To install from a cloned/downloaded repository.
-This will let you run snapspam anywhere.
-
-If you don't want to install snapspam,
-you can just install the requirements with:
-
-```sh
-python -m pip install -r requirements.txt
 ```
 
 ## Use
@@ -33,7 +33,7 @@ python -m pip install -r requirements.txt
 To get help from the CLI, run:
 
 ```sh
-python -m snapspam --help
+snapspam --help
 ```
 
 or
@@ -47,7 +47,7 @@ Some information about how to use the app will be returned.
 To get help for a specific target app (eg. sendit), run:
 
 ```sh
-python -m snapspam sendit --help
+snapspam sendit --help
 ```
 
 or
@@ -59,13 +59,13 @@ python snapspam.py sendit --help
 Here's an example usage of the app to spam a sendit sticker:
 
 ```sh
-python snapspam.py sendit cd06ec9a-2879-1afa-5108-fed08b1ecaa0 'Spammed'
+snapspam sendit cd06ec9a-2879-1afa-5108-fed08b1ecaa0 'Spammed'
 ```
 
 The ID can also be replaced by the full URL, like this:
 
 ```sh
-python -m snapspam sendit https://web.getsendit.com/s/cd06ec9a-2879-1afa-5108-fed08b1ecaa0 'Spammed'
+snapspam sendit https://web.getsendit.com/s/cd06ec9a-2879-1afa-5108-fed08b1ecaa0 'Spammed'
 ```
 
 ## Documentation
