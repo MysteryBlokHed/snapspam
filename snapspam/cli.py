@@ -26,7 +26,7 @@ def main():
         '-V',
         '--version',
         action='version',
-        version=f'snapspam {__version__}',
+        version=f'%(prog)s {__version__}',
     )
 
     subparsers = parser.add_subparsers(
