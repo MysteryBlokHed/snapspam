@@ -21,7 +21,7 @@ def start_threads(target: Callable, count: int):
 
 def main():
     """The main function to set up the CLI and run the spammers"""
-    parser = argparse.ArgumentParser(description='Spam sendit or LMK messages.')
+    parser = argparse.ArgumentParser(description='spam sendit or LMK messages.')
     parser.add_argument(
         '-V',
         '--version',
@@ -76,7 +76,7 @@ def main():
         type=str,
         help='the sticker ID or URL to spam',
     )
-    sendit_parser.add_argument('message', type=str, help='The message to spam')
+    sendit_parser.add_argument('message', type=str, help='the message to spam')
     sendit_parser.add_argument(
         '--sendit-delay',
         type=int,
