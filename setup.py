@@ -5,7 +5,7 @@ with open('README.md', 'r') as f:
 
 setuptools.setup(
     name='snapspam',
-    version='0.1.1',
+    version='0.1.2',
     author='Adam Thompson-Sharpe',
     author_email='adamthompsonsharpe@gmail.com',
     description='Spam sendit or LMK messages.',
