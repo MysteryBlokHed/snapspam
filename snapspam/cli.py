@@ -30,7 +30,7 @@ def main():
     )
 
     subparsers = parser.add_subparsers(
-        help='The app to spam',
+        help='the app to spam',
         dest='target_app',
         required=True,
     )
@@ -42,67 +42,67 @@ def main():
         '--msg-count',
         type=int,
         default=-1,
-        help='The amount of messages to send. '
-        'Set to -1 (default) to spam until stopped',
+        help='the amount of messages to send. '
+        'set to -1 (default) to spam until stopped',
     )
     common_args.add_argument(
         '--thread-count',
         type=int,
         default=1,
-        help='The amount of threads to create. Only valid for --msg-count -1 ',
+        help='the amount of threads to create. only valid for --msg-count -1 ',
     )
     common_args.add_argument(
         '--delay',
         type=int,
         default=500,
-        help='Milliseconds to wait between message sends',
+        help='milliseconds to wait between message sends',
     )
     common_args.add_argument(
         '--proxy',
         type=str,
-        help='Specify a SOCKS proxy to use for HTTPS traffic '
-        '(eg. socks5://127.0.0.1:9050). Note that this will almost certainly '
+        help='specify a SOCKS proxy to use for HTTPS traffic '
+        '(eg. socks5://127.0.0.1:9050). note that this will almost certainly '
         'be much slower than not using a proxy',
     )
 
     ##### Sendit Parser #####
     sendit_parser = subparsers.add_parser(
         'sendit',
-        help='Spam a sendit sticker',
+        help='spam a sendit sticker',
         parents=[common_args],
     )
     sendit_parser.add_argument(
         'sticker_id',
         type=str,
-        help='The sticker ID or URL to spam',
+        help='the sticker ID or URL to spam',
     )
     sendit_parser.add_argument('message', type=str, help='The message to spam')
     sendit_parser.add_argument(
         '--sendit-delay',
         type=int,
         default=0,
-        help='Minutes before the recipient gets the message '
-        '(Part of sendit; not a custom feature)',
+        help='minutes before the recipient gets the message '
+        '(part of sendit; not a custom feature)',
     )
 
     ##### LMK Parser #####
     lmk_parser = subparsers.add_parser(
         'lmk',
-        help='Spam an LMK poll',
+        help='spam an LMK poll',
         parents=[common_args],
     )
 
     lmk_parser.add_argument(
         'lmk_id',
         type=str,
-        help='The ID or URL of the poll to spam',
+        help='the ID or URL of the poll to spam',
     )
     lmk_parser.add_argument(
         'choice',
         type=str,
-        help='The choice ID to send to the poll. '
-        "To get a list of choices, use 'get_choices'. "
-        "To send a random choice each time, use 'all'",
+        help='the choice ID to send to the poll. '
+        "to get a list of choices, use 'get_choices'. "
+        "to send a random choice each time, use 'all'",
     )
 
     args = parser.parse_args()
