@@ -49,7 +49,7 @@ def main():
         '--thread-count',
         type=int,
         default=1,
-        help='the amount of threads to create. only valid for --msg-count -1 ',
+        help='the amount of threads to create. only valid for --msg-count -1',
     )
     common_args.add_argument(
         '--delay',
