@@ -21,7 +21,10 @@ def start_threads(target: Callable, count: int):
 
 def main():
     """The main function to set up the CLI and run the spammers"""
-    parser = argparse.ArgumentParser(description='spam sendit or LMK messages.')
+    parser = argparse.ArgumentParser(
+        prog='snapspam',
+        description='spam sendit or LMK messages.',
+    )
     parser.add_argument(
         '-V',
         '--version',
