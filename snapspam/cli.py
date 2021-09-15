@@ -108,6 +108,13 @@ def main():
         "to get a list of choices, use 'get_choices'. "
         "to send a random choice each time, use 'all'",
     )
+    lmk_parser.add_argument(
+        '--no-choice-lookup',
+        action='store_true',
+        help="don't get a list of choices from the poll "
+        "while sending messages. this just means that the value "
+        "of the choice won't be printed out, just the ID will.",
+    )
 
     args = parser.parse_args()
 
@@ -169,18 +176,24 @@ def main():
                 print('-' * 50)
             return
 
+        if args.choice.lower() == 'all' or not args.no_choice_lookup:
+            choices = {}
+            for c in spammer.get_choices():
+                choices[c.cid] = c.contents
+            ids = list(choices.keys())
+        else:
+            choices = ids = None
+
         def send(choice: str):
             r = spammer.post(choice)
             if r.status_code == 200:
-                print(f'Sent message (Choice: {choice} - '
-                      f'{datetime.now().strftime("%H:%M:%S.%f")[:-3]})')
+                print(
+                    f'Sent message (Choice: {choice if choices is None else choices[choice]} - '
+                    f'{datetime.now().strftime("%H:%M:%S.%f")[:-3]})')
             else:
                 print(f'Message failed to send. Code: {r.status_code}')
                 print(r.content)
             sleep(args.delay / 1000)
-
-        if args.choice.lower() == 'all':
-            ids = [c.cid for c in spammer.get_choices()]
 
         if args.msg_count == -1:
             print('Sending messages until stopped.')
