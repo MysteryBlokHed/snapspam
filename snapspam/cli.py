@@ -3,6 +3,7 @@ import argparse
 import json
 import threading
 import random
+from datetime import datetime
 from time import sleep
 from typing import Callable
 
@@ -128,7 +129,9 @@ def main():
         def send():
             r = json.loads(spammer.post().content)
             if r['status'] == 'success':
-                print('Sent message.')
+                print(
+                    f'Sent message. ({datetime.now().strftime("%H:%M:%S.%f")[:-3]})',
+                )
             else:
                 print(f'Message failed to send. Code: {r.status_code}')
                 print(r.content)
@@ -169,7 +172,8 @@ def main():
         def send(choice: str):
             r = spammer.post(choice)
             if r.status_code == 200:
-                print(f'Sent message (Choice: {choice})')
+                print(f'Sent message (Choice: {choice} - '
+                      f'{datetime.now().strftime("%H:%M:%S.%f")[:-3]})')
             else:
                 print(f'Message failed to send. Code: {r.status_code}')
                 print(r.content)
