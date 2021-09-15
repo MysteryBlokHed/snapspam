@@ -113,7 +113,9 @@ def main():
         action='store_true',
         help="don't get a list of choices from the poll "
         "while sending messages. this just means that the value "
-        "of the choice won't be printed out, just the ID will.",
+        "of the choice won't be printed out, just the ID will. "
+        "this parameter doesn't apply if 'all' is passed for choice_id, "
+        "since the list of choices will have to be requested any way.",
     )
 
     args = parser.parse_args()
