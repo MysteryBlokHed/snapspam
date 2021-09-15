@@ -114,7 +114,7 @@ def main():
         help="don't get a list of choices from the poll "
         "while sending messages. this just means that the value "
         "of the choice won't be printed out, just the ID will. "
-        "this parameter doesn't apply if 'all' is passed for choice_id, "
+        "this parameter doesn't apply if 'all' is passed for the choice, "
         "since the list of choices will have to be requested any way.",
     )
 
