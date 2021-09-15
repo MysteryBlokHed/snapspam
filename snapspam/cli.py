@@ -188,8 +188,8 @@ def main():
             r = spammer.post(choice)
             if r.status_code == 200:
                 print(
-                    f'Sent message (Choice: {choice if choices is None else choices[choice]} - '
-                    f'{datetime.now().strftime("%H:%M:%S.%f")[:-3]})')
+                    f'Sent message ({datetime.now().strftime("%H:%M:%S.%f")[:-3]} - '
+                    f'{choice if choices is None else choices[choice]})')
             else:
                 print(f'Message failed to send. Code: {r.status_code}')
                 print(r.content)
