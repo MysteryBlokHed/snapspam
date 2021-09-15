@@ -108,6 +108,15 @@ def main():
         "to get a list of choices, use 'get_choices'. "
         "to send a random choice each time, use 'all'",
     )
+    lmk_parser.add_argument(
+        '--no-choice-lookup',
+        action='store_true',
+        help="don't get a list of choices from the poll "
+        "while sending messages. this just means that the value "
+        "of the choice won't be printed out, just the ID will. "
+        "this parameter doesn't apply if 'all' is passed for the choice, "
+        "since the list of choices will have to be requested any way.",
+    )
 
     args = parser.parse_args()
 
@@ -169,18 +178,31 @@ def main():
                 print('-' * 50)
             return
 
+        if args.choice.lower() == 'all' or not args.no_choice_lookup:
+            choices = {}
+            for c in spammer.get_choices():
+                choices[c.cid] = c.contents
+            ids = list(choices.keys())
+        else:
+            choices = ids = None
+
         def send(choice: str):
             r = spammer.post(choice)
             if r.status_code == 200:
-                print(f'Sent message (Choice: {choice} - '
-                      f'{datetime.now().strftime("%H:%M:%S.%f")[:-3]})')
+                print(
+                    f'Sent message ({datetime.now().strftime("%H:%M:%S.%f")[:-3]} - '
+                    f'{choice if choices is None else choices[choice]})')
             else:
-                print(f'Message failed to send. Code: {r.status_code}')
-                print(r.content)
+                # This error is misleading, so print our own output
+                r_json = json.loads(r.content)
+                if 'reason' in r_json and r_json[
+                        'reason'] == "Argument 'question' required":
+                    print('Invalid choice ID provided.')
+                    exit(1)
+                else:
+                    print(f'Message failed to send. Code: {r.status_code}')
+                    print(r_json)
             sleep(args.delay / 1000)
-
-        if args.choice.lower() == 'all':
-            ids = [c.cid for c in spammer.get_choices()]
 
         if args.msg_count == -1:
             print('Sending messages until stopped.')
