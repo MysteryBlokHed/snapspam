@@ -142,8 +142,9 @@ def main():
                     f'Sent message. ({datetime.now().strftime("%H:%M:%S.%f")[:-3]})',
                 )
             else:
+                r_json = json.loads(r.content)
                 print(f'Message failed to send. Code: {r.status_code}')
-                print(r.content)
+                print(r_json)
             sleep(args.delay / 1000)
 
         if args.msg_count == -1:
