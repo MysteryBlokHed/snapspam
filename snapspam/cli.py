@@ -193,8 +193,15 @@ def main():
                     f'Sent message ({datetime.now().strftime("%H:%M:%S.%f")[:-3]} - '
                     f'{choice if choices is None else choices[choice]})')
             else:
-                print(f'Message failed to send. Code: {r.status_code}')
-                print(r.content)
+                # This error is misleading, so print our own output
+                r_json = json.loads(r.content)
+                if 'reason' in r_json and r_json[
+                        'reason'] == "Argument 'question' required":
+                    print('Invalid choice ID provided.')
+                    exit(1)
+                else:
+                    print(f'Message failed to send. Code: {r.status_code}')
+                    print(r_json)
             sleep(args.delay / 1000)
 
         if args.msg_count == -1:
