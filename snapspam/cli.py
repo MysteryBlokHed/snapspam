@@ -11,6 +11,12 @@ from . import __version__
 
 
 def start_threads(target: Callable, count: int):
+    """Start threads to spam
+
+    Args:
+        target (Callable): The function to run
+        count (int): The amount of threads to start
+    """
     for i in range(count - 1):
         t = threading.Thread(target=target)
         t.daemon = True
@@ -18,6 +24,15 @@ def start_threads(target: Callable, count: int):
 
     # Instead of running n threads, run n - 1 and run one in the main thread
     target()
+
+
+def get_time() -> str:
+    """Get the current time with milliseconds
+
+    Returns:
+        str: The formatted time
+    """
+    return datetime.now().strftime("%H:%M:%S.%f")[:-3]
 
 
 def main():
@@ -139,7 +154,7 @@ def main():
             r = json.loads(spammer.post().content)
             if r['status'] == 'success':
                 print(
-                    f'Sent message. ({datetime.now().strftime("%H:%M:%S.%f")[:-3]})',
+                    f'Sent message. ({get_time()})',
                 )
             else:
                 r_json = json.loads(r.content)
@@ -191,7 +206,7 @@ def main():
             r = spammer.post(choice)
             if r.status_code == 200:
                 print(
-                    f'Sent message ({datetime.now().strftime("%H:%M:%S.%f")[:-3]} - '
+                    f'Sent message ({get_time()} - '
                     f'{choice if choices is None else choices[choice]})')
             else:
                 # This error is misleading, so print our own output
