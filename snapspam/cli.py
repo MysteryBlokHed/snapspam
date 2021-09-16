@@ -140,6 +140,9 @@ def main():
     else:
         proxies = {'https': args.proxy}
 
+    # Arguments to pass to later-defined send() function, if any
+    send_args = []
+
     if args.target_app == 'sendit':
         from .sendit import Sendit
 
@@ -153,9 +156,7 @@ def main():
         def send():
             r = json.loads(spammer.post().content)
             if r['status'] == 'success':
-                print(
-                    f'Sent message. ({get_time()})',
-                )
+                print(f'Sent message. ({get_time()})',)
             else:
                 r_json = json.loads(r.content)
                 print(f'Message failed to send. Code: {r.status_code}')
@@ -163,21 +164,10 @@ def main():
             sleep(args.delay / 1000)
 
         if args.msg_count == -1:
-            print('Sending messages until stopped.')
-            print('(Stop with Ctrl + C)')
-        else:
-            print(f'Sending {args.msg_count} messages...')
-
-        if args.msg_count == -1:
 
             def thread():
                 while True:
                     send()
-
-            start_threads(thread, args.thread_count)
-        else:
-            for _ in range(args.msg_count):
-                send()
 
     elif args.target_app == 'lmk':
         from .lmk import LMK
@@ -205,9 +195,8 @@ def main():
         def send(choice: str):
             r = spammer.post(choice)
             if r.status_code == 200:
-                print(
-                    f'Sent message ({get_time()} - '
-                    f'{choice if choices is None else choices[choice]})')
+                print(f'Sent message ({get_time()} - '
+                      f'{choice if choices is None else choices[choice]})')
             else:
                 # This error is misleading, so print our own output
                 r_json = json.loads(r.content)
@@ -221,9 +210,6 @@ def main():
             sleep(args.delay / 1000)
 
         if args.msg_count == -1:
-            print('Sending messages until stopped.')
-            print('(Stop with Ctrl + C)')
-
             if args.choice.lower() == 'all':
 
                 def thread():
@@ -234,11 +220,17 @@ def main():
                 def thread():
                     while True:
                         send(args.choice)
-
-            start_threads(thread, args.thread_count)
         else:
-            print(f'Sending {args.msg_count} messages...')
-            for _ in range(args.msg_count):
-                send()
+            send_args = [args.choice]
     else:
         return
+
+    # Spam
+    if args.msg_count == -1:
+        print('Sending messages until stopped.')
+        print('(Stop with Ctrl + C)')
+        start_threads(thread, args.thread_count)
+    else:
+        print(f'Sending {args.msg_count} messages...')
+        for _ in range(args.msg_count):
+            send(*send_args)
