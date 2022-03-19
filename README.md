@@ -2,6 +2,8 @@
 
 Spam sendit or LMK messages.
 
+[![Open in Cloud Shell](https://gstatic.com/cloudssh/images/open-btn.svg)](https://shell.cloud.google.com/cloudshell/editor?cloudshell_git_repo=https://github.com/MysteryBlokHed/snapspam.git)
+
 ## Installation
 
 You can use snapspam without installing it, but installing it
